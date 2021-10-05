@@ -1,0 +1,15 @@
+{
+  "name": "ngx-filter-search",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^11.1.2",
+    "@angular/core": "^11.1.2",
+    "@syncfusion/ej2-angular-inputs": "^19.1.67",
+    "lodash": "^4.17.21"
+  },
+  "dependencies": {
+    "@syncfusion/ej2-angular-inputs": "^19.1.67",
+    "lodash": "^4.17.21",
+    "tslib": "^2.0.0"
+  }
+}
