@@ -1,0 +1,121 @@
+<div class="row" *ngIf="data && config">
+  <div class="col-sm-12">
+     <div class="row pt-1 pb-1">
+       <div class="col-sm-6">
+
+       </div>
+       <div class="col-sm-6">
+         <h6 class="float-right cursor-pointer text-primary" (click)="clearAllFilters()">Clear All</h6>
+       </div>
+     </div>
+      <div *ngIf="config?.search?.isSearchShow" class="pt-1 pb-1">
+        <strong class="pt-2 pb-2 font-weight-bold text-capitalize">Search</strong>
+          <div class="input-group pt-1">
+            <div class="form-outline">
+              <input type="text" id="form1" class="form-control" [(ngModel)]="searchText" placeholder="Search Keyword..." (keyup)="applyFilter()"/>
+            </div>
+          </div>
+      </div>
+      <hr>
+      <div *ngIf="config?.filter?.isShowFilter && tempFilter">
+        <div *ngFor="let config of config.filter.filterParameter; let i = index;let last = last;">
+            <div *ngIf="config?.isShowFilter && tempFilter[config.filterBy]">
+              <div class="row pt-1 pb-1" *ngIf="(((!config?.minimumShowLimit && tempFilter[config.filterBy].length > 0) || (tempFilter[config.filterBy].length > config?.minimumShowLimit && config?.isShowFilter && config?.filterType == 'checkBoxes' && tempFilter[config.filterBy].length > 0)) || (config?.filterType == 'range_slider' && tempFilter[config.filterBy].maxValue > 0 ))">
+                <div class="col-sm-8 float-left">
+                  <strong class="font-weight-bold">{{ tempFilter[config.filterBy]?.filterTitle}}</strong>
+                </div>
+                <div class="col-sm-4">
+                  <h6 class="float-right cursor-pointer text-primary clear" (click)="clearSingleFilters(tempFilter[config.filterBy].filterBy,tempFilter[config.filterBy].filterType)">Clear</h6>
+                </div>
+              </div>
+              <div *ngIf="(config?.isShowFilter && config?.filterType == 'checkBoxes' && (!config?.minimumShowLimit || (tempFilter[config.filterBy].length > config?.minimumShowLimit))) ">
+                <div class="" *ngFor="let filter of tempFilter[config.filterBy] | slice : 0:(!tempFilter[config.filterBy].isShowMore ? config.filterCheckBoxLimit : tempFilter[config.filterBy].filterCheckBoxLimit); let i = index">
+                  <input type="checkbox" [id]="filter.fieldName" [name]="filter.fieldName" [value]="filter.fieldValue" [(ngModel)]="filter.isChecked" (change)="applyFilter()">
+                  <span class="pl-2 font-small">
+                    {{filter.fieldName}}
+                  </span>
+                </div>
+                <div *ngIf="tempFilter[config.filterBy].length > config?.filterCheckBoxLimit ">
+                  <h6 class="cursor-pointer text-primary pt-1" *ngIf ="!tempFilter[config.filterBy].isShowMore" (click)="showMoreItems(tempFilter[config.filterBy].filterBy,true)">
+                  {{ tempFilter[config.filterBy].length - config.filterCheckBoxLimit }} More
+                  </h6>
+                  <h6 class="cursor-pointer text-primary pt-1" *ngIf ="tempFilter[config.filterBy].isShowMore" (click)="showMoreItems(tempFilter[config.filterBy].filterBy, false)">
+                    Show Less
+                  </h6>
+                </div>
+            </div>
+            <div *ngIf="config?.isShowFilter && config?.filterType == 'range_slider' && tempFilter[config.filterBy].maxValue > 0">
+              <!-- (change)="loanChange($event)" 
+               [ticks]="tempFilter[config.filterBy].ticks" 
+               [ticks]="tempFilter[config.filterBy].ticks"
+              -->
+              <!-- {{tempFilter[config.filterBy].ticks | json}} -->
+              <!-- {{tempFilter[config.filterBy]  | json}} -->
+              <!-- {{tempFilter[config.filterBy].minValue}} -->
+              <!-- {{tempFilter[config.filterBy | json}} -->
+              <!-- [ticks]="tempFilter[config.filterBy].ticks" 
+                [tooltip]="tempFilter[config.filterBy].tooltip"
+                 [ticks]="tempFilter[config.filterBy].ticks"
+                 [tooltip]="tempFilter[config.filterBy].tooltip"
+              --> 
+              <!-- [ticks]="tempFilter[config.filterBy].ticks" -->
+              <span class="min">
+                <span>
+                  {{tempFilter[config.filterBy].rangeValue[0]}} - {{tempFilter[config.filterBy].rangeValue[1]}}
+                </span>
+              </span>
+              <ejs-slider
+                id="range"
+                [(value)]="tempFilter[config.filterBy].rangeValue"
+                [min]="tempFilter[config.filterBy].minValue"
+                [max]="tempFilter[config.filterBy].maxValue"
+                [step]="tempFilter[config.filterBy].rangeStep"
+                [type]="'Range'"
+                (change)="sliderChange(tempFilter[config?.filterBy])"
+                (changed)="applyFilter()">
+                </ejs-slider>
+                 <!-- <div class="row">
+                  <div class="col-sm-6">
+                    <span class="float-left min">₹ {{tempFilter[config.filterBy].minValue}}</span>
+                  </div>
+                  <div class="col-sm-6">
+                    <span class="float-right min">₹ {{tempFilter[config.filterBy].maxValue}}</span>
+                  </div>
+                 </div> -->
+                <!-- <div class="row" *ngIf="tempFilter[config.filterBy].dropdown.length > 0">
+                    <div class="col-sm-6 ">
+                        <div class="pt-1">
+                          <select class="browser-default custom-select float-right range-select" 
+                            [(ngModel)]="tempFilter[config.filterBy].dropDownRangeValues[0]"
+                            (change)="rangeDropDownOnChange(tempFilter[config.filterBy])">
+                            <option
+                            *ngFor="let value of tempFilter[config.filterBy].dropdown"
+                            [ngValue]="value"
+                            >
+                            {{ value | currencyLocal:'INR'}}
+                            </option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 ">
+                        <div class="pt-1">
+                          <select class="browser-default custom-select float-right range-select"
+                          [(ngModel)]="tempFilter[config.filterBy].dropDownRangeValues[1]"
+                          (change)="rangeDropDownOnChange(tempFilter[config.filterBy])">
+                            <option
+                            *ngFor="let value of tempFilter[config.filterBy].dropdown"
+                             [ngValue]="value"
+                            >
+                            {{ value | currencyLocal:'INR'}}
+                            </option>
+                          </select>
+                        </div>
+                    </div>
+                </div> -->
+              </div>
+            <hr *ngIf="(!last && ((!config?.minimumShowLimit || (tempFilter[config.filterBy].length > config?.minimumShowLimit && config?.isShowFilter && config?.filterType == 'checkBoxes')) || (config?.filterType == 'range_slider')))">
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
