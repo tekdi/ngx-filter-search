@@ -32,70 +32,65 @@ import { NgxFilterSearchModule } from 'ngx-filter-search';
 
 
 ```json
-`export const filterConfig = {
-    search: {
-                isSearchShow: true,
-                searchParameter: [
-                   {
-                       searchBy: 'Brand',
-                   },
-                   {
-                       searchBy: 'Country',
-                   },
-                   .
-				   .
-				   .
-                ]
-            },
-    filter: {
-        isShowFilter: true,
-        // This Id is required, and used for finding the unique arrays.
-        // Unique column (Ex . Auto increment Id)
-        uniqueColumn: 'id',
-        filterParameter:  [
-            {   // FilterBy - It should be unique in the JSON and  node should contain in the data provided
-                //(For checkboxes filter node should filterBy in data)
-                filterBy: 'Brand',
-                // isShowFilter - true for showing the filter.
-                isShowFilter: true,
-                // filterTitle - it is Name for the filter
-                filterTitle: 'Brand',
-                // fieldName - Name of the field we are showing after the checkbox.
-                fieldName: 'Brand',
-                //fieldValue - Field value is used for actual filtering the data
-                fieldValue: 'Brand',
-                // filterValuesSorting - Sorting the filter (All checkboxes is sorting)
-                filterValuesSorting: true,
-                //filterSortDirection - Direction of the sorting (ASC or DESC)
-                filterSortDirection: 'asc',
-                // filterType - Type of the filter (checkboxes or range_filter)
-                filterType: 'checkBoxes',
-                //filterCheckBoxLimit- Shows the minimum checkboxes at once....
-                filterCheckBoxLimit: 10,
-                //default the comparison is done with respect to the string datatype for, if needed we can pass the datatype as a Number
-                //dataType: Number
+{
+  "search": {
+              "isSearchShow": true,
+              "searchParameter": [
+                 {
+                     "searchBy": "Brand",
+                 },
+                 {
+                     "searchBy": "Country",
+                 },
+              ]
+          },
+  "filter": {
+      "isShowFilter": true,
+      // This Id is required, and used for finding the unique arrays.
+      // Unique column (Ex . Auto increment Id)
+      "uniqueColumn": "id",
+      "filterParameter":  [
+          {   // FilterBy - It should be unique in the JSON and  node should contain in the data provided
+              //(For checkboxes filter node should filterBy in data)
+              "filterBy": "Brand",
+              // isShowFilter - true for showing the filter.
+              "isShowFilter": true,
+              // filterTitle - it is Name for the filter
+              "filterTitle": "Brand",
+              // fieldName - Name of the field we are showing after the checkbox.
+              "fieldName": "Brand",
+              //fieldValue - Field value is used for actual filtering the data
+              "fieldValue": "Brand",
+              // filterValuesSorting - Sorting the filter (All checkboxes is sorting)
+              "filterValuesSorting": true,
+              //filterSortDirection - Direction of the sorting (ASC or DESC)
+              "filterSortDirection": "asc",
+              // filterType - Type of the filter (checkboxes or range_filter)
+              "filterType": "checkBoxes",
+              //filterCheckBoxLimit- Shows the minimum checkboxes at once....
+              "filterCheckBoxLimit": 10,
+              //default the comparison is done with respect to the string datatype for, if needed we can pass the datatype as a Number
+              //dataType: Number
 
-            },
-            {
-                filterBy: 'Country',
-                isShowFilter: true,
-                filterTitle: 'Country',
-                fieldName: 'Country',
-                fieldValue: 'Country',
-                filterValuesSorting: true,
-                filterSortDirection: 'asc',
-                filterType: 'checkBoxes',
-                // dataType: Number,
-                // Shows the minimum checkboxes at once....
-                filterCheckBoxLimit: 10,
-            },
-           .
-		   .
-		   .
-		   .
-        ]
-    },`
+          },
+          {
+              "filterBy": "Country",
+              "isShowFilter": true,
+              "filterTitle": "Country",
+              "fieldName": "Country",
+              "fieldValue": "Country",
+              "filterValuesSorting": true,
+              "filterSortDirection": "asc",
+              "filterType": "checkBoxes",
+              // dataType: Number,
+              // Shows the minimum checkboxes at once....
+              "filterCheckBoxLimit": 10,
+          },
+      ]
+  },
+}
 ```
+
 
 ## Configuration Values
 
@@ -119,7 +114,7 @@ import { NgxFilterSearchModule } from 'ngx-filter-search';
 
 
 ## Define options in your consuming component:
-- ### in component file ().ts)
+- ### in component file (.ts)
 
 ```js
 export class MyClass implements OnInit {
