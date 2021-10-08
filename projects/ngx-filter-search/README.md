@@ -31,8 +31,9 @@ import { NgxFilterSearchModule } from 'ngx-filter-search';
 ##  Create the configuration for the filter and search
 
 
-```json
-{
+
+```javascript
+export filterConfig = {
   "search": {
               "isSearchShow": true,
               "searchParameter": [
@@ -89,6 +90,7 @@ import { NgxFilterSearchModule } from 'ngx-filter-search';
       ]
   },
 }
+
 ```
 
 
