@@ -1,31 +1,46 @@
 
-##  How to use the ngx-filter-search package
-- #### Install the package
-` npm install ngx-filter-search`
--  #### Use package in your project
--  ##### After installing the library you need to import the library in your project.
+# Angular Filter Search
 
- 1. Import Package in the module file
+## Demo
 
-`  import { NgxFilterSearchModule } from 'ngx-filter-search'; `
+![Alt Text](https://raw.githubusercontent.com/Nilesh5995/ngx-filter-search/main/demo/npm-fileter-search.gif)
 
- 2.  add the package in the import section.
+## Dependencies
+* Bootstrap CSS 3 or 4
 
- `imports: [ NgxFilterSearchModule ] `
+## Install
 
-- #####  Create the configuration for the filter and search
+* Install with [npm](https://www.npmjs.com): `npm install ngx-filter-search`.
 
-  Create the configuration file or configuration variable , in configuration file create the json object.
-  The example configuration file shown below, you can add filter you want by adding the values in the config.
+## Usage
 
+Import `NgxFilterSearchModule` into your @NgModule.
+
+```js
+import { NgxFilterSearchModule } from 'ngx-filter-search';
+@NgModule({
+  // ...
+  imports: [
+    NgxFilterSearchModule,
+  ]
+  // ...
+})
 
 ```
-export const filterConfig = {
+
+##  Create the configuration for the filter and search
+
+
+```json
+`export const filterConfig = {
     search: {
                 isSearchShow: true,
                 searchParameter: [
                    {
                        searchBy: 'Brand',
+                   },
+                   {
+                       searchBy: 'Country',
                    },
                    .
 				   .
@@ -79,23 +94,54 @@ export const filterConfig = {
 		   .
 		   .
         ]
-    },
+    },`
 ```
 
+## Configuration Values
+
+|  Item             | Description                                |  Value     |
+| --------------------- | ------------------------------------------ | ----------------  |
+| search   | Add the all search related configuration             | Object (Json object contains the all search related config|
+| isSearchShow              | For Hide or Shows the search        | boolean (true or false)       |
+| searchBy (in searchParameter) |  Add the all nodes which you want tp apply search     | string ex - searchBy: 'Brand' |
+| filter               | Text for "checked" with single item selected (used in dynamic title)    | Object |
+| isShowFilter         |  Hide or shows the all filters  | Boolean (True or False) |
+| uniqueColumn     | Unique columns for the search and filter   | String Ex -  uniqueColumn: 'id' (required)      |
+| filterParameter          | Array of the all filters | Array         |
+| FilterBy           | It should be unique in the data and  node should contain in the data provided | String Ex. filterBy: 'Brand' |
+| isShowFilter     | Hide or shows the particular filter  | true or false |
+| filterTitle    | Title of the filter | String |
+| fieldName | Name of the field we are showing after the checkbox. | String |
+| filterValuesSorting | Sorting the filters (Checkbox) | Boolean  |
+| filterType | Type of the filter (checkboxes or range_filter)| String |
+|filterCheckBoxLimit | Shows the minimum checkboxes at once.... | Number |
+|dataType | default the comparison is done with respect to the string datatype for, if needed we can pass the datatype as a Number | String or Number |
 
 
+## Define options in your consuming component:
+- ### in component file ().ts)
 
-- #### Add the code in the template file , to render the filter
+```js
+export class MyClass implements OnInit {
+    // Original data (Which is fetch from the API)
+    public data;
+    // Data after the filtered (which you need to shows in the template)
+    public filteredData;
+    ngOnInit() {
+    }
 
-`<ngx-filter-search [config]="config" [data]="newRestaurants" (filteredData)="filterOutput($event)"><ngx-filter-search> `
-
-- ##### Add the function in the .ts file to get the filter data
-
-`filterOutput($event) {
+    filterOutput($event) {
     if ($event) {
         this.filteredData= $event;
         }
     }
-  `
+}
+```
 
-Assign the $event to the any variable you want to shows in the template.
+- ### Template (HTML)
+```html
+<ngx-filter-search [config]="config" [data]="data" (filteredData)="filterOutput($event)"><ngx-filter-search>
+```
+* Here Config is a filter and search configuration Ex. Defined like above
+* Here data is  object containing the arrays.
+* filterOutput is function (output event of the filter) sent the filtered data.
