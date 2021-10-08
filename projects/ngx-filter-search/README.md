@@ -3,7 +3,7 @@
 
 ## Demo
 
-![Alt Text](https://raw.githubusercontent.com/Nilesh5995/ngx-filter-search/main/demo/npm-fileter-search.gif)
+![Alt Text](https://raw.githubusercontent.com/Nilesh5995/ngx-filter-search/main/demo/npm-filter-search-demo.gif)
 
 ## Dependencies
 * Bootstrap CSS 3 or 4
